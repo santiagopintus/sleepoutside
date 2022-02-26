@@ -89,6 +89,10 @@ button {
   display: block;
   border: 0;
   font-size: var(--large-font);
+  cursor: pointer;
+}
+button:active {
+  transform: translateY(2px);
 }
 .divider {
   border-bottom: 2px solid var(--primary-color);
