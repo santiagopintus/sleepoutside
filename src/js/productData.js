@@ -1,34 +1,31 @@
+import { setProducts } from './product.js';
+/* Converts response to json */
+function convertToJson(res) {
+  if (res.ok) {
+    return res.json();
+  } else {
+    throw new Error('Bad Response');
+  }
+}
 export default class ProductData {
   constructor(category) {
     this.category = category;
     this.path = `../json/${this.category}.json`;
-    this.products = this.getData();
-  }
-
-  /* Converts response to json */
-  convertToJson(res) {
-    if (res.ok) {
-      return res.json();
-    } else {
-      throw new Error('Bad Response');
-    }
   }
 
   /* Gets products data from json files */
   getData() {
     fetch(this.path)
-      .then(this.convertToJson)
-      .then((data) => {
-        console.log(data);
-        return data;
-      })
-      .catch((err) => {
-        console.log(err);
+      .then(data => {
+        data = convertToJson(data)
+        data.then(data => {
+          setProducts(data);
+        });
       });
   }
-
+  
   /* Finds the product inside products array using id */
-  findProductById(id) {
-    return this.products.find((item) => item.Id === id);
+  findProductById(items, id) {
+    return items.find((item) => item.Id === id);
   }
 }

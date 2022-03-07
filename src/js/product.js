@@ -1,12 +1,22 @@
 import ProductData from './productData.js';
-const tents = new ProductData('tents');
-
-// let products = tents.products;
-let products = tents.getData();
-console.log(products);
+import { getParams } from './utils.js';
+/* Instance of Product Data */
+const dataSource = new ProductData('tents');
+/* GET product id from params */
+const productId = getParams('product');
+let products = [];
+/* GET list of products */
+dataSource.getData();
+//Gives time to load products
+setTimeout(() => {
+  console.log(dataSource.findProductById(products, productId));
+}, 300);
 
 let cart = [];
-
+export function setProducts(data) {
+  //Set products to global variable
+  products = data;
+}
 function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
@@ -20,7 +30,7 @@ function addToCart(e) {
   if (currentCart) {
     cart = currentCart;
   }
-  const product = findProductById(products, e.target.dataset.id);
+  const product = findProductById(e.target.dataset.id);
   //insert current cart plus new product
   cart.push(product);
   setLocalStorage('so-cart', cart);
