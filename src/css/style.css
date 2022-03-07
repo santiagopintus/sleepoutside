@@ -106,11 +106,13 @@ button:active {
   text-align: center;
 }
 
-.cart svg {
+.cart i {
   width: 25px;
+  content: url(../images/noun_Backpack_65884.svg);
+  transition: filter 150ms ease-in-out;
 }
-.cart:hover svg {
-  fill: gray;
+.cart:hover i {
+  filter: invert(53%) sepia(0%) saturate(1491%) hue-rotate(209deg) brightness(94%) contrast(86%);
 }
 
 /* End cart icon styles */
