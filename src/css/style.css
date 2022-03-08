@@ -32,20 +32,18 @@ header {
 }
 .logo {
   line-height: 60px;
-  width: 245px;
+  width: fit-content;
   overflow: hidden;
   display: flex;
   font-size: 30px;
   text-align: right;
   font-family: var(--font-headline);
+  text-decoration: none;
+  color: var(--font-body);
 }
 .logo img {
   width: 60px;
   height: 60px;
-}
-.logo a {
-  text-decoration: none;
-  color: var(--font-body);
 }
 .hero {
   position: relative;
