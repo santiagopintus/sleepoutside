@@ -6,22 +6,20 @@ export default class ProductDetails {
     this.productId = productId;
     this.product = {};
     this.dataSource = dataSource;
-    
+    this.currentCart = getLocalStorage('so-cart');
   }
   async init() {
     this.product = await this.dataSource.findProductById(this.productId);
     document.querySelector('main').innerHTML = this.renderProductDetails();
     // add listener to Add to Cart button
-    document.getElementById('addToCart')
-    document.addEventListener('click', this.addToCart.bind(this));
+    document.getElementById('addToCart').addEventListener('click', this.addToCart.bind(this));
   }
   addToCart() {
-    let cartContents = [];
-    if(!cartContents){
-        cartContents = [];
+    if(!this.currentCart) {
+      this.currentCart = [];
     }
-    cartContents.push(this.product);
-    setLocalStorage('so-cart', cartContents);
+    this.currentCart.push(this.product);
+    setLocalStorage('so-cart', this.currentCart);
   }
   renderProductDetails() {
     return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
