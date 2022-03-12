@@ -12,7 +12,7 @@ function getCartContents() {
 }
 
 function renderCartItem(item) {
-const newItem = `<li class="cart-card divider">
+  return `<li class="cart-card divider">
   <a href="#" class="cart-card__image">
     <img
       src="${item.Image}"
@@ -26,7 +26,6 @@ const newItem = `<li class="cart-card divider">
   <p class="cart-card__quantity">qty: 1</p>
   <p class="cart-card__price">$${item.FinalPrice}</p>
 </li>`;
-  return newItem;
 }
 
 getCartContents();
