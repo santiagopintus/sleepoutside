@@ -29,7 +29,7 @@ export default class ProductDetails {
     <p class="product-card__price">$${this.product.FinalPrice}</p>
     <p class="product__color">${this.product.Colors[0].ColorName}</p>
     <p class="product__description">
-    ${this.product.DescriptionHtmlSimple}
+      ${this.product.DescriptionHtmlSimple}
     </p>
     <div class="product-detail__add">
       <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>

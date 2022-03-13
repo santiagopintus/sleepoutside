@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Template for a cart item -->
+    <template id="cartItemTemplate">
+      <li class="cart-card divider">
+        <a href="#" class="cart-card__image">
+          <img src="" alt="Image of " />
+        </a>
+        <a href="#">
+          <h2 class="card__name"></h2>
+        </a>
+        <p class="cart-card__color"></p>
+        <p class="cart-card__quantity">Qty: 1</p>
+        <p class="cart-card__price">$</p>
+      </li>
+    </template>
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css" />
+    <!-- Scripts -->
+    <script src="../js/cart.js" type="module" ></script>
+
+    <!-- Page title -->
+    <title>Sleep Outside | Cart</title>
+  </head>
+  <body>
+    <!-- Dynamicly generated header -->
+    <header class="divider" id="mainHeader"></header>
+
+    <main class="divider">
+      <section class="products">
+        <h2>My Cart</h2>
+        <ul class="cart-list">
+          <!-- Loads with js -->
+        </ul>
+      </section>
+    </main>
+    <!-- Dynamicly generated footer -->
+    <footer id="mainFooter"></footer>
+
+  </body>
+</html>

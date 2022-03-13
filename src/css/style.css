@@ -31,12 +31,12 @@ header {
   padding: 0 10px;
 }
 .logo {
-  line-height: 60px;
   width: fit-content;
   overflow: hidden;
   display: flex;
-  font-size: 30px;
   text-align: right;
+  line-height: 60px;
+  font-size: 30px;
   font-family: var(--font-headline);
   text-decoration: none;
   color: var(--font-body);
@@ -170,6 +170,7 @@ button:active {
 }
 
 /* Start cart list card styles */
+
 .cart-card {
   display: grid;
   grid-template-columns: 25% auto 15%;
@@ -188,6 +189,8 @@ button:active {
 .cart-card .card__name {
   grid-row: 1;
   grid-column: 2;
+  color: black;
+  text-decoration: none;
 }
 
 .cart-card__color {
