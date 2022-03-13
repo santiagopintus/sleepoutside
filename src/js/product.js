@@ -1,7 +1,7 @@
 import ProductData from './productData.js';
 import ProductDetails from './productDetails.js';
 import { getParam } from './utils.js';
-import {loadHeaderFooter} from "./utils.js";
+import {loadHeaderFooter} from './utils.js';
 
 
 const dataSource = new ProductData('tents');

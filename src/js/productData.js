@@ -7,7 +7,7 @@ function convertToJson(res) {
 }
   
 export default class ProductData  {
-  constructor(category, isHomePage=false) {
+  constructor(category, isHomePage = false) {
     this.category = category;
 
     if (isHomePage) {

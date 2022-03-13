@@ -1,4 +1,4 @@
-import {renderListWithTemplate} from "./utils.js";
+import {renderListWithTemplate} from './utils.js';
 
 export default class ProductList {
   constructor(category, dataSource, listElement) {
@@ -13,15 +13,6 @@ export default class ProductList {
     // RENDERS THE PRODUCTS
     this.renderList(products);
   }
-  // CLONE THE TEMPLATE FOR EACH PRODUCT
-  // renderList(products) { 
-  //   const template = document.getElementById('productCardTemplate');
-  //   products.forEach(product => {
-  //     const clone = template.content.cloneNode(true);
-  //     const hydratedTemplate = this.prepareTemplate(clone, product);
-  //     this.listElement.appendChild(hydratedTemplate);
-  //   })
-  // }
   // PREPARES THE TEMPLATE WITH THE PRODUCT DATA AND RETURNS IT
   prepareTemplate(template, product) {
     template.querySelector('a').href +=  product.Id;

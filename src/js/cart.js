@@ -1,11 +1,10 @@
 import { getLocalStorage } from './utils.js';
-import {loadHeaderFooter} from "./utils.js";
+import {loadHeaderFooter} from './utils.js';
 
 function getCartContents() {
-  let markup = '';
   const cartItems = getLocalStorage('so-cart');
   if (!cartItems){
-    document.querySelector('.product-list').innerHTML = "Your cart is empty";
+    document.querySelector('.product-list').innerHTML = 'Your cart is empty';
   } else {
     const htmlItems = cartItems.map(item => renderCartItem(item));
     document.querySelector('.product-list').innerHTML = htmlItems;
