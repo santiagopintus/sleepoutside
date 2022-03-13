@@ -1,4 +1,5 @@
 import { getLocalStorage } from './utils.js';
+import {loadHeaderFooter} from "./utils.js";
 
 function getCartContents() {
   let markup = '';
@@ -29,3 +30,4 @@ function renderCartItem(item) {
 }
 
 getCartContents();
+loadHeaderFooter();
