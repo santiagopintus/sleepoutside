@@ -1,3 +1,5 @@
+const baseURL = 'http://157.201.228.93:2992/'
+
 function convertToJson(res) {
   if (res.ok) {
     return res.json();
@@ -7,18 +9,12 @@ function convertToJson(res) {
 }
   
 export default class ProductData  {
-  constructor(category, isHomePage = false) {
+  constructor(category) {
     this.category = category;
-
-    if (isHomePage) {
-      this.path = `json/${this.category}.json`;
-    } else {
-      this.path = `../json/${this.category}.json`;
-    }
   }
-  getData() {
-    return fetch(this.path)
-      .then(convertToJson).then((data) => data);
+  async getData() {
+    return fetch(baseURL + `products/search/${this.category}`)
+      .then(convertToJson).then((data) => data.Result);
   }
   async findProductById(id) {
     const products = await this.getData()
