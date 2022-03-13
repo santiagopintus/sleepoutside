@@ -25,8 +25,8 @@ export default class ProductList {
   renderList(products) {
     // Removing possible content from the list
     this.listElement.innerHTML = '';
-    //get the template
-    let template = document.getElementById('productCardTemplate');
+    // Get the template
+    const template = document.getElementById('productCardTemplate');
     renderListWithTemplate(template, this.listElement, products, this.prepareTemplate);
   }
 }

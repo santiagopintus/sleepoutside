@@ -15,6 +15,7 @@ export default class CartList {
     this.renderList(list);
   }
   
+  // PREPARES THE TEMPLATE WITH THE PRODUCT DATA AND RETURNS IT
   prepareTemplate(template, product) {
     template.querySelector('.cart-card__image img').src =  product.Image;
     template.querySelector('.cart-card__image img').alt += product.Name;
@@ -25,11 +26,10 @@ export default class CartList {
   }
   
   renderList(list) {
-    // make sure the list is empty
+    // Removing possible content from the cart container
     this.listElement.innerHTML = '';
-    //get the template
-    const template = document.getElementById('cart-card-template');
+    // Get the template
+    const template = document.getElementById('cartItemTemplate');
     renderListWithTemplate(template, this.listElement, list, this.prepareTemplate);
-    
   }
 }

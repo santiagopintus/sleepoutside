@@ -3,8 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sleep Outside | Cart</title>
+    <!-- Template for a cart item -->
+    <template id="cartItemTemplate">
+      <li class="cart-card divider">
+        <a href="#" class="cart-card__image">
+          <img src="" alt="Image of " />
+        </a>
+        <a href="#">
+          <h2 class="card__name"></h2>
+        </a>
+        <p class="cart-card__color"></p>
+        <p class="cart-card__quantity">qty: 1</p>
+        <p class="cart-card__price">$</p>
+      </li>
+    </template>
+    <!-- Styles -->
     <link rel="stylesheet" href="../css/style.css" />
+    <!-- Scripts -->
+    <script src="../js/cart.js" type="module" ></script>
+
+    <!-- Page title -->
+    <title>Sleep Outside | Cart</title>
   </head>
   <body>
     <!-- Dynamicly generated header -->
@@ -21,6 +40,5 @@
     <!-- Dynamicly generated footer -->
     <footer id="mainFooter"></footer>
 
-    <script type="module" src="../js/cart.js"></script>
   </body>
 </html>
