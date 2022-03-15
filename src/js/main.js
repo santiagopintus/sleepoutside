@@ -1,7 +1,4 @@
-import {loadHeaderFooter} from './utils.js';
+import { loadHeaderFooter } from './utils.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-
-  //Load header and footer
-  loadHeaderFooter();
-});
+//Load header and footer
+loadHeaderFooter(true);
