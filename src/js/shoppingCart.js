@@ -17,7 +17,8 @@ export default class CartList {
   
   // PREPARES THE TEMPLATE WITH THE PRODUCT DATA AND RETURNS IT
   prepareTemplate(template, product) {
-    template.querySelector('.cart-card__image img').src =  product.Image;
+    console.log(product)
+    template.querySelector('.cart-card__image img').src =  product.Images.PrimaryMedium;
     template.querySelector('.cart-card__image img').alt += product.Name;
     template.querySelector('.card__name').textContent = product.Name;
     template.querySelector('.cart-card__color').textContent = product.Colors[0].ColorName;

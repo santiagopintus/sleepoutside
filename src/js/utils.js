@@ -53,10 +53,18 @@ export async function loadTemplate(path) {
   return template;
 }
 
-export async function loadHeaderFooter() {
+export async function loadHeaderFooter(home = false) {
   //Gets the header and footer template
-  const headerTemplate = await loadTemplate('../partials/header.html');
-  const footerTemplate = await loadTemplate('../partials/footer.html');
+  let headerTemplate = '';
+  let footerTemplate = '';
+
+  if (home) {
+    headerTemplate = await loadTemplate('partials/header.html');
+    footerTemplate = await loadTemplate('partials/footer.html');
+  } else {
+    headerTemplate = await loadTemplate('../partials/header.html');
+    footerTemplate = await loadTemplate('../partials/footer.html');
+  }
   
   //Gets the header and footer elements
   const $header = document.getElementById('mainHeader');
@@ -66,3 +74,6 @@ export async function loadHeaderFooter() {
   renderWithTemplate(footerTemplate, $footer);
 }
     
+export function capitalize(string) { 
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
