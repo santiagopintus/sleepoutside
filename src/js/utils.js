@@ -1,3 +1,12 @@
+function convertToText(res) {
+  if (res.ok) {
+    return res.text();
+  } else {
+    throw new Error("Bad Response");
+  }
+}
+
+// wrapper for querySelector...returns matching element
 export function qs(selector) {
   return document.querySelector(selector);
 }
@@ -12,15 +21,70 @@ export function setLocalStorage(key, data) {
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-  qs(selector).addEventListener('touchend', (event) => {
+  qs(selector).addEventListener("touchend", (event) => {
     event.preventDefault();
     callback();
   });
-  qs(selector).addEventListener('click', callback);
+  qs(selector).addEventListener("click", callback);
 }
 
 export function getParam(param) {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   return urlParams.get(param);
+}
+
+export function renderListWithTemplate(template, parent, list, callback) {
+  list.forEach((item) => {
+    const clone = template.content.cloneNode(true);
+    const templateWithData = callback(clone, item);
+    parent.appendChild(templateWithData);
+  });
+}
+
+export function renderWithTemplate(template, parent, data, callback) {
+  let clone = template.content.cloneNode(true);
+  if (callback) {
+    clone = callback(clone, data);
+  }
+  parent.appendChild(clone);
+}
+
+export async function loadTemplate(path) {
+  const html = await fetch(path).then(convertToText);
+  const template = document.createElement("template");
+  template.innerHTML = html;
+  return template;
+}
+
+// load the header and footer
+export async function loadHeaderFooter() {
+  const header = await loadTemplate("../partials/header.html");
+  const footer = await loadTemplate("../partials/footer.html");
+  const headerElement = document.getElementById("main-header");
+  const footerElement = document.getElementById("main-footer");
+  renderWithTemplate(header, headerElement);
+  renderWithTemplate(footer, footerElement);
+}
+
+export function formatExpirationDate(e) {
+  let inputChar = String.fromCharCode(event.keyCode);
+  let code = event.keyCode;
+  let allowedKeys = [8];
+  if (allowedKeys.indexOf(code)!== -1) { return; }
+  event.target.value=event.target.value.replace(
+    /^([1-9]\/|[2-9])$/g, '0$1/'
+  ).replace(
+    /^(0[1-9]|1[0-2])$/g, '$1/'
+  ).replace(
+    /^([0-1])([3-9])$/g, '0$1/$2'
+  ).replace(
+    /^(0?[1-9]|1[0-2])([0-9]{2})$/g, '$1/$2'
+  ).replace(
+    /^([0]+)\/|[0]+$/g, '0'
+  ).replace(
+    /[^\d\/]|^[\/]*$/g, ''
+  ).replace(
+    /\/\//g, '/'
+  );
 }
