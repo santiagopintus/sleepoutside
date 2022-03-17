@@ -2,7 +2,7 @@ function convertToText(res) {
   if (res.ok) {
     return res.text();
   } else {
-    throw new Error("Bad Response");
+    throw new Error('Bad Response');
   }
 }
 
@@ -21,11 +21,11 @@ export function setLocalStorage(key, data) {
 }
 // set a listener for both touchend and click
 export function setClick(selector, callback) {
-  qs(selector).addEventListener("touchend", (event) => {
+  qs(selector).addEventListener('touchend', (event) => {
     event.preventDefault();
     callback();
   });
-  qs(selector).addEventListener("click", callback);
+  qs(selector).addEventListener('click', callback);
 }
 
 export function getParam(param) {
@@ -52,39 +52,31 @@ export function renderWithTemplate(template, parent, data, callback) {
 
 export async function loadTemplate(path) {
   const html = await fetch(path).then(convertToText);
-  const template = document.createElement("template");
+  const template = document.createElement('template');
   template.innerHTML = html;
   return template;
 }
 
 // load the header and footer
 export async function loadHeaderFooter() {
-  const header = await loadTemplate("../partials/header.html");
-  const footer = await loadTemplate("../partials/footer.html");
-  const headerElement = document.getElementById("main-header");
-  const footerElement = document.getElementById("main-footer");
+  const header = await loadTemplate('../partials/header.html');
+  const footer = await loadTemplate('../partials/footer.html');
+  const headerElement = document.getElementById('main-header');
+  const footerElement = document.getElementById('main-footer');
   renderWithTemplate(header, headerElement);
   renderWithTemplate(footer, footerElement);
 }
 
-export function formatExpirationDate(e) {
-  let inputChar = String.fromCharCode(event.keyCode);
-  let code = event.keyCode;
-  let allowedKeys = [8];
-  if (allowedKeys.indexOf(code)!== -1) { return; }
-  event.target.value=event.target.value.replace(
-    /^([1-9]\/|[2-9])$/g, '0$1/'
+export function formatExpirationDate(string) {
+  return string.replace(
+      /[^0-9]/g, '' // To allow only numbers
   ).replace(
-    /^(0[1-9]|1[0-2])$/g, '$1/'
+      /^([2-9])$/g, '0$1' // To handle 3 > 03
   ).replace(
-    /^([0-1])([3-9])$/g, '0$1/$2'
+      /^(1{1})([3-9]{1})$/g, '0$1/$2' // 13 > 01/3
   ).replace(
-    /^(0?[1-9]|1[0-2])([0-9]{2})$/g, '$1/$2'
+      /^0{1,}/g, '0' // To handle 00 > 0
   ).replace(
-    /^([0]+)\/|[0]+$/g, '0'
-  ).replace(
-    /[^\d\/]|^[\/]*$/g, ''
-  ).replace(
-    /\/\//g, '/'
+      /^([0-1]{1}[0-9]{1})([0-9]{1,2}).*/g, '$1/$2' // To handle 113 > 11/3
   );
 }

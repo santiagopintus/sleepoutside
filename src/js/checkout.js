@@ -1,4 +1,4 @@
-import { formatExpirationDate } from "./utils.js";
+import { formatExpirationDate } from './utils.js';
 import { loadHeaderFooter } from './utils.js';
 import CheckoutProcess from './CheckoutProcess.js';
 
@@ -16,3 +16,5 @@ document.querySelector('#checkoutSubmit').addEventListener('click', (e) => {
 
   myCheckout.checkout();
 });
+
+formatExpirationDate(expiration);
