@@ -35,19 +35,22 @@ export function getParam(param) {
 }
 
 export function renderListWithTemplate(template, parent, list, callback) {
-  list.forEach((item) => {
+  list.forEach(item => {
     const clone = template.content.cloneNode(true);
     const templateWithData = callback(clone, item);
     parent.appendChild(templateWithData);
-  });
+  })
 }
 
 export function renderWithTemplate(template, parent, data, callback) {
-  let clone = template.content.cloneNode(true);
-  if (callback) {
+  
+    let clone = template.content.cloneNode(true);
+    if(callback) {
     clone = callback(clone, data);
-  }
-  parent.appendChild(clone);
+    
+    }
+    parent.appendChild(clone);
+  
 }
 
 export async function loadTemplate(path) {
@@ -55,6 +58,7 @@ export async function loadTemplate(path) {
   const template = document.createElement('template');
   template.innerHTML = html;
   return template;
+
 }
 
 // load the header and footer
@@ -67,16 +71,30 @@ export async function loadHeaderFooter() {
   renderWithTemplate(footer, footerElement);
 }
 
-export function formatExpirationDate(string) {
-  return string.replace(
-      /[^0-9]/g, '' // To allow only numbers
-  ).replace(
-      /^([2-9])$/g, '0$1' // To handle 3 > 03
-  ).replace(
-      /^(1{1})([3-9]{1})$/g, '0$1/$2' // 13 > 01/3
-  ).replace(
-      /^0{1,}/g, '0' // To handle 00 > 0
-  ).replace(
-      /^([0-1]{1}[0-9]{1})([0-9]{1,2}).*/g, '$1/$2' // To handle 113 > 11/3
-  );
+export function alertMessage(message, scroll = true, duration = 3000) {
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+  alert.innerHTML = `<p>${message}</p><span>X</span>`;
+  
+  alert.addEventListener('click', function(e) {
+      if(e.target.tagName == 'SPAN') {
+        main.removeChild(this);
+      }
+  })
+  const main = document.querySelector('main');
+  main.prepend(alert);
+  // make sure they see the alert by scrolling to the top of the window
+  //we may not always want to do this...so default to scroll=true, but allow it to be passed in and overridden.
+  if(scroll)
+    window.scrollTo(0,0);
+
+  // left this here to show how you could remove the alert automatically after a certain amount of time.
+  // setTimeout(function () {
+  //   main.removeChild(alert);
+  // }, duration);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll('.alert');
+  alerts.forEach(alert => document.querySelector('main').removeChild(alert));
 }

@@ -1,4 +1,33 @@
-var s=(i,t,r)=>new Promise((e,c)=>{var u=d=>{try{o(r.next(d))}catch(a){c(a)}},p=d=>{try{o(r.throw(d))}catch(a){c(a)}},o=d=>d.done?e(d.value):Promise.resolve(d.value).then(u,p);o((r=r.apply(i,t)).next())});import{setLocalStorage as l,getLocalStorage as n,loadHeaderFooter as h}from"./utils.js";h();export default class m{constructor(t,r){this.productId=t,this.product={},this.dataSource=r}init(){return s(this,null,function*(){this.product=yield this.dataSource.findProductById(this.productId),document.querySelector("main").innerHTML=this.renderProductDetails(),document.getElementById("addToCart").addEventListener("click",this.addToCart.bind(this))})}addToCart(){let t=n("so-cart");t||(t=[]),t.push(this.product),l("so-cart",t)}renderProductDetails(){return`<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
+import { setLocalStorage, getLocalStorage, loadHeaderFooter } from './utils.js';
+
+loadHeaderFooter();
+export default class ProductDetails {
+  constructor(productId, dataSource) {
+    this.productId = productId;
+    this.product = {};
+    this.dataSource = dataSource;
+  }
+  async init() {
+    this.product = await this.dataSource.findProductById(this.productId);
+    document.querySelector('main').innerHTML = this.renderProductDetails();
+    // add listener to Add to Cart button
+    document
+      .getElementById('addToCart')
+      .addEventListener('click', this.addToCart.bind(this));
+  }
+  addToCart() {
+    // to fix the cart we need to get anything that is in the cart already.
+    let cartContents = getLocalStorage('so-cart');
+    //check to see if there was anything there
+    if (!cartContents) {
+      cartContents = [];
+    }
+    // then add the current product to the list
+    cartContents.push(this.product);
+    setLocalStorage('so-cart', cartContents);
+  }
+  renderProductDetails() {
+    return `<section class="product-detail"> <h3>${this.product.Brand.Name}</h3>
     <h2 class="divider">${this.product.NameWithoutBrand}</h2>
     <img
       class="divider"
@@ -12,4 +41,6 @@ var s=(i,t,r)=>new Promise((e,c)=>{var u=d=>{try{o(r.next(d))}catch(a){c(a)}},p=
     </p>
     <div class="product-detail__add">
       <button id="addToCart" data-id="${this.product.Id}">Add to Cart</button>
-    </div></section>`}}
+    </div></section>`;
+  }
+}

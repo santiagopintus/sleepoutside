@@ -1,1 +1,3 @@
-import{loadHeaderFooter as o}from"./utils.js";o();
+import { loadHeaderFooter } from './utils.js';
+
+loadHeaderFooter();

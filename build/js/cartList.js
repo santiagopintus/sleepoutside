@@ -1,1 +1,41 @@
-var n=(o,t,e)=>new Promise((i,a)=>{var s=r=>{try{l(e.next(r))}catch(c){a(c)}},m=r=>{try{l(e.throw(r))}catch(c){a(c)}},l=r=>r.done?i(r.value):Promise.resolve(r.value).then(s,m);l((e=e.apply(o,t)).next())});import{renderListWithTemplate as g,getLocalStorage as h}from"./utils.js";export default class y{constructor(t,e){this.key=t,this.listElement=e,this.total=0}init(){return n(this,null,function*(){const t=h(this.key);this.calculateListTotal(t),this.renderList(t)})}prepareTemplate(t,e){return console.log(e),e.Images?t.querySelector(".cart-card__image img").src=e.Images.PrimaryMedium:t.querySelector(".cart-card__image img").src=e.Image,t.querySelector(".cart-card__image img").alt+=e.Name,t.querySelector(".card__name").textContent=e.Name,t.querySelector(".cart-card__color").textContent=e.Colors[0].ColorName,t.querySelector(".cart-card__price").textContent+=e.FinalPrice,t}calculateListTotal(t){const e=t.map(a=>a.FinalPrice),i=e.reduce((a,s)=>a+s);this.total=i.toFixed(2)}renderList(t){this.listElement.innerHTML="";const e=document.getElementById("cart-card-template");g(e,this.listElement,t,this.prepareTemplate),document.querySelector(".list-total").innerText+=` $${this.total}`}}
+import { renderListWithTemplate, getLocalStorage } from './utils.js';
+
+export default class CartList {
+  constructor (key, listElement) {
+    this.key = key;
+    this.listElement = listElement;
+    this.total = 0;
+  }
+
+  async init() {
+    
+    const list = getLocalStorage(this.key);
+    if(list) {
+      this.calculateListTotal(list);
+      this.renderList(list);
+    }
+  }
+  
+  prepareTemplate(template, product) {
+    
+    template.querySelector('.cart-card__image img').src =  product.Images.PrimaryMedium;
+    template.querySelector('.cart-card__image img').alt += product.Name;
+    template.querySelector('.card__name').textContent = product.Name;
+    template.querySelector('.cart-card__color').textContent = product.Colors[0].ColorName;
+    template.querySelector('.cart-card__price').textContent += product.FinalPrice; 
+    return template;
+  }
+  calculateListTotal(list) {
+      const amounts = list.map((item) => item.FinalPrice);
+      this.total = amounts.reduce((sum, item) => sum + item, 0);
+  }
+  renderList(list) {
+    // make sure the list is empty
+    this.listElement.innerHTML = '';
+    //get the template
+    const template = document.getElementById('cart-card-template');
+    renderListWithTemplate(template, this.listElement, list, this.prepareTemplate);
+    document.querySelector('.list-total').innerText += ` $${this.total}`;
+    
+  }
+}

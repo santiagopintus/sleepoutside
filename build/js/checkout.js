@@ -1,1 +1,18 @@
-import"./utils.js";import{loadHeaderFooter as o}from"./utils.js";import r from"./CheckoutProcess.js";o();const e=new r("so-cart",".checkout-summary");e.init(),document.querySelector("#zip").addEventListener("blur",e.calculateOrdertotal.bind(e)),document.querySelector("#checkoutSubmit").addEventListener("click",t=>{t.preventDefault(),e.checkout()});
+import { loadHeaderFooter } from './utils.js';
+import CheckoutProcess from './CheckoutProcess.js';
+
+loadHeaderFooter();
+
+const myCheckout = new CheckoutProcess('so-cart', '.checkout-summary');
+myCheckout.init();
+
+document.querySelector('#zip').addEventListener('blur', myCheckout.calculateOrdertotal.bind(myCheckout));
+document.querySelector('#checkoutSubmit')
+.addEventListener('click', (e) => {
+  e.preventDefault();
+  var myForm = document.forms[0];
+  var chk_status = myForm.checkValidity();
+  myForm.reportValidity();
+  if(chk_status) 
+    myCheckout.checkout();
+});
